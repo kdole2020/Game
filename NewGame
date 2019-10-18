@@ -25,6 +25,7 @@ public class Pig{
       userTotal=userTotal+dice1+dice2;
       System.out.println("Your total is "+userTotal);
     }
+    return userTotal;
   }
   public static void compPlay(){
     
