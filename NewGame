@@ -1,2 +1,21 @@
 //Veni and Ben
-//Pig Game
+//Pig Game One Player Version
+
+public class Pig{
+  public static void main (String[] args){
+    while (game playing){
+      if (user rolls dice){
+        generate 2 dice numbers
+        if (dice!=1)
+          total=total+dice
+      }
+      Computer plays
+    }
+  }
+  public static void userPlay(){
+    
+  }
+  public static void compPlay(){
+    
+  }
+}
