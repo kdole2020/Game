@@ -16,11 +16,15 @@ public class Pig{
     int userTotal=0;
     System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
     Random generator=new Random();
-    int dice1=generator(5)+1;
-    int dice2=generator(5)+1;
-    userTotal=userTotal+dice1+dice2;
-    System.out.println("You rolled "+dice1+" and "+dice2+". Your total is "+userTotal);
-    return userTotal;
+    int dice1=0;
+    int dice2=0;
+    while (dice1!=1 && dice2!=1){
+      int dice1=generator(5)+1;
+      int dice2=generator(5)+1;
+      System.out.println("You rolled "+dice1+" and "+dice2+".");
+      userTotal=userTotal+dice1+dice2;
+      System.out.println("Your total is "+userTotal);
+    }
   }
   public static void compPlay(){
     
