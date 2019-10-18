@@ -1,19 +1,26 @@
 //Veni and Ben
 //Pig Game One Player Version
 
+import java.util.Scanner;
+import java.util.Random;
 public class Pig{
   public static void main (String[] args){
-    while (game playing){
-      if (user rolls dice){
-        generate 2 dice numbers
-        if (dice!=1)
-          total=total+dice
-      }
-      Computer plays
+    boolean gamePlaying=true;
+    int userTotal=0;
+    while (gamePlaying==true){
+      userTotal=userTotal+userPlay(userTotal);
     }
   }
-  public static void userPlay(){
-    
+  public static int userPlay(userTotal){
+    Scanner reader=new Scanner(System.in);
+    int userTotal=0;
+    System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
+    Random generator=new Random();
+    int dice1=generator(5)+1;
+    int dice2=generator(5)+1;
+    userTotal=userTotal+dice1+dice2;
+    System.out.println("You rolled "+dice1+" and "+dice2+". Your total is "+userTotal);
+    return userTotal;
   }
   public static void compPlay(){
     
