@@ -11,7 +11,7 @@ public class Pig{
       userTotal=userTotal+userPlay(userTotal);
     }
   }
-  public static int userPlay(userTotal){
+  public static int userPlay(int userTotal){
     Scanner reader=new Scanner(System.in);
     int userTotal=0;
     System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
