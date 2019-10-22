@@ -1,5 +1,5 @@
 //Veni and Ben
-//Pig Game One Player Version
+//Pig Game One Player or Two Player Version
 
 import java.util.Scanner;
 import java.util.Random;
