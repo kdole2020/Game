@@ -5,20 +5,23 @@ import java.util.Scanner;
 import java.util.Random;
 public class Pig{
   public static void main (String[] args){
-    boolean gamePlaying=true;
+    int gamePlaying=1;
     int userTotal=0;
-    while (gamePlaying==true){
-      userTotal=userTotal+userPlay(userTotal);
+    while (gamePlaying==1){
+         userTotal=userPlay(userTotal);
+         gamePlaying=playAgain();
+         //System.out.print("I guessed in "+tries+" tries.");
     }
+      userTotal=userTotal+userPlay(userTotal);
   }
   public static int userPlay(int userTotal){
     Scanner reader=new Scanner(System.in);
-    userTotal=0;
     System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
+    reader.nextLine();
     Random generator=new Random();
     int dice1=0;
     int dice2=0;
-    while (dice1!=1 && dice2!=1){
+    if (dice1!=1 && dice2!=1){
       dice1=generator.nextInt(5)+1;
       dice2=generator.nextInt(5)+1;
       System.out.println("You rolled "+dice1+" and "+dice2+".");
@@ -50,4 +53,23 @@ public class Pig{
     }
     return ctotal;
   }
+  public static int playAgain(){
+      Scanner reader=new Scanner(System.in);
+      int output=1;
+      int asking=1;
+      while (asking==1){
+         System.out.print("Play Again? Enter y/n: ");
+         String answer=reader.nextLine();
+         if (answer.equals("y")){
+            output=1;
+            asking=0;
+         }else if (answer.equals("n")){
+            output=0;
+            asking=0;
+         }else{
+            asking=1;
+         }
+      }
+      return output;
+   }
 }
