@@ -25,7 +25,9 @@ public class Pig{
       int userTotal1=0;
       int userTotal2=0;
       while (gamePlaying==1){
+            System.out.println("Player 1 is playing.");
             userTotal1=userPlay(userTotal1);
+            System.out.println("Player 2 is playing.");
             userTotal2=userPlay(userTotal2);
             gamePlaying=playAgain();
             //System.out.print("I guessed in "+tries+" tries.");
@@ -87,4 +89,3 @@ public class Pig{
       return output;
    }
 }
-
