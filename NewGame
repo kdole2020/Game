@@ -7,8 +7,10 @@ public class Pig{
   public static void main (String[] args){
     int gamePlaying=1;
     int userTotal=0;
+    int cTotal=0;
     while (gamePlaying==1){
          userTotal=userPlay(userTotal);
+         cTotal=compPlay()+cTotal;
          gamePlaying=playAgain();
          //System.out.print("I guessed in "+tries+" tries.");
     }
