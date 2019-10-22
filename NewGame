@@ -27,7 +27,7 @@ public class Pig{
     }
     return userTotal;
   }
-  public static void compPlay(){
+  public static int compPlay(){
     Random g = new Random();
     int ctotal = 0;
     int cagain = 1;
