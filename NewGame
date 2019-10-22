@@ -5,16 +5,33 @@ import java.util.Scanner;
 import java.util.Random;
 public class Pig{
   public static void main (String[] args){
-    int gamePlaying=1;
-    int userTotal=0;
-    int cTotal=0;
-    while (gamePlaying==1){
-         userTotal=userPlay(userTotal);
-         cTotal=compPlay()+cTotal;
-         gamePlaying=playAgain();
-         //System.out.print("I guessed in "+tries+" tries.");
+    
+    Scanner reader=new Scanner(System.in);
+    System.out.print("Do you want to play with 1 player or two player? Enter 1 or 2: ");
+    int player=reader.nextInt();
+    if (player==1){
+       int gamePlaying=1;
+       int userTotal=0;
+       int cTotal=0;
+       while (gamePlaying==1){
+            userTotal=userPlay(userTotal);
+            cTotal=compPlay()+cTotal;
+            gamePlaying=playAgain();
+            //System.out.print("I guessed in "+tries+" tries.");
+       }
+         System.out.print(userTotal+"\n"+cTotal);
+    }else if (player==2){
+      int gamePlaying=1;
+      int userTotal1=0;
+      int userTotal2=0;
+      while (gamePlaying==1){
+            userTotal1=userPlay(userTotal1);
+            userTotal2=userPlay(userTotal2);
+            gamePlaying=playAgain();
+            //System.out.print("I guessed in "+tries+" tries.");
+       }
+         System.out.print(userTotal1+"\n"+userTotal2);
     }
-      System.out.print(userTotal+"\n"+cTotal);
   }
   public static int userPlay(int userTotal){
     Scanner reader=new Scanner(System.in);
