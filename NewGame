@@ -3,95 +3,91 @@
 
 import java.util.Scanner;
 import java.util.Random;
-public class Pig{
+public class PigTest{
   public static void main (String[] args){
     int answering=1;
-    while (answering==1){
        Scanner reader=new Scanner(System.in);
        System.out.print("Do you want to play with 1 player or two player? Enter 1 or 2: ");
        int player=reader.nextInt();
        if (player==1){
           int userTotal=0;
           int cTotal=0;
-          userTotal=userPlay(userTotal);
-          cTotal=compPlay()+cTotal;
+             while(cTotal < 100 && userTotal < 100){
+             userTotal=userPlay(userTotal);
+             cTotal=compPlay()+cTotal;
+          }
           System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.");
           if (userTotal>cTotal)
             System.out.print("You won!");
           else if (userTotal<cTotal)
             System.out.print("You lost.");
           else
-            System.out.print("The game was a tie.");
-          answering=0;
-          answering=0;  
+            System.out.print("The game was a tie.");  
        }else if (player==2){
          int gamePlaying=1;
          int userTotal1=0;
          int userTotal2=0;
-         while (gamePlaying==1){
-               System.out.println("Player 1 is playing.");
-               userTotal1=userPlay(userTotal1);
-               System.out.println("\nPlayer 2 is playing.");
-               userTotal2=userPlay(userTotal2);
-               gamePlaying=playAgain();
-               //System.out.print("I guessed in "+tries+" tries.");
-          }
-          System.out.println("Player 1 had "+userTotal1+" points. Player 2 had "+userTotal2+" points.");
-          if (userTotal1>userTotal2)
+         while(userTotal1 < 100 && userTotal2 < 100){
+            System.out.println("Player 1 is playing.");
+            userTotal1=userPlay(userTotal1);
+            System.out.println("\nPlayer 2 is playing.");
+            userTotal2=userPlay(userTotal2);
+            System.out.println("Player 1 had "+userTotal1+" points. Player 2 had "+userTotal2+" points.");
+         }
+         if (userTotal1>userTotal2)
             System.out.print("Player 1 won.");
-          else if (userTotal1<userTotal2)
+         else if (userTotal1<userTotal2)
             System.out.print("Player 2 won.");
-          else
+         else
             System.out.print("The game was a tie.");
-          answering=0;
-       }else{
-         answering=1;
-       }
-     }
-  }
-  public static int userPlay(int userTotal){
-    int gamePlaying=1;
-    while (gamePlaying==1){
-       Scanner reader=new Scanner(System.in);
-       System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
-       reader.nextLine();
-       Random generator=new Random();
-       int dice1=0;
-       int dice2=0;
-       dice1=generator.nextInt(5)+1;
-       dice2=generator.nextInt(5)+1;
-       if (dice1!=1 && dice2!=1){
-         System.out.println("You rolled "+dice1+" and "+dice2+".");
-         userTotal=userTotal+dice1+dice2;
-         System.out.println("Your total is "+userTotal);
-         gamePlaying=playAgain();
-       }else{
-         System.out.println("You rolled "+dice1+" and "+dice2+".");
-         System.out.println("Your total is "+userTotal+" and your turn is over because you rolled a 1.");
-         gamePlaying=0;
-       }
-    }
-    return userTotal;
-  }
-  public static int compPlay(){
-    Random g = new Random();
-    int ctotal = 0;
-    int cagain = 1;
-    int cdie1;
-    int cdie2;
-      cdie1 = g.nextInt(6) + 1;
-      cdie2 = g.nextInt(6) + 1;
-      if(cdie1 == 1 || cdie2 == 1){
-        ctotal = 0;
-        System.out.println("Computer rolled a " + cdie1 + " and a " + cdie2 + " for a " + ctotal);
-        return ctotal;
-      }else{
-        ctotal += cdie1 + cdie2;
+         }
+   }
+   public static int userPlay(int userTotal){
+      int gamePlaying=1;
+      while (gamePlaying==1){
+         Scanner reader=new Scanner(System.in);
+         System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
+         reader.nextLine();
+         Random generator=new Random();
+         int dice1=0;
+         int dice2=0;
+         dice1=generator.nextInt(5)+1;
+         dice2=generator.nextInt(5)+1;
+         if (dice1!=1 && dice2!=1){
+            System.out.println("You rolled "+dice1+" and "+dice2+".");
+            userTotal=userTotal+dice1+dice2;
+            System.out.println("Your total is "+userTotal);
+            gamePlaying=playAgain();
+         }else{
+            System.out.println("You rolled "+dice1+" and "+dice2+".");
+            System.out.println("Your total is "+userTotal+" and your turn is over because you rolled a 1.");
+            gamePlaying=0;
+         }
       }
-      System.out.println("Computer rolled a " + cdie1 + " and a " + cdie2 + " for a " + ctotal);
-    return ctotal;
-  }
-  public static int playAgain(){
+      return userTotal;
+   }
+   public static int compPlay(){
+      Random g = new Random();
+      int ctotal = 0;
+      int cagain = 1;
+      int cdie1;
+      int cdie2;
+      while(ctotal != 15){
+         cdie1 = g.nextInt(6) + 1;
+         cdie2 = g.nextInt(6) + 1;
+         if(cdie1 == 1 || cdie2 == 1){
+            ctotal = 0;
+            System.out.println("Computer rolled a " + cdie1 + " and a " + cdie2 + " for a " + ctotal);
+            return ctotal;
+         }else{
+            ctotal += cdie1 + cdie2;
+         }
+         System.out.println("Computer rolled a " + cdie1 + " and a " + cdie2 + " for a " + ctotal);
+         return ctotal;
+      }
+      return ctotal;
+   }
+   public static int playAgain(){
       Scanner reader=new Scanner(System.in);
       int output=1;
       int asking=1;
