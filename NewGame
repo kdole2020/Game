@@ -3,7 +3,7 @@
 
 import java.util.Scanner;
 import java.util.Random;
-public class PigTest{
+public class Pig{
   public static void main (String[] args){
     int answering=1;
        Scanner reader=new Scanner(System.in);
@@ -13,9 +13,11 @@ public class PigTest{
           int userTotal=0;
           int cTotal=0;
              while(cTotal < 100 && userTotal < 100){
-             userTotal=userPlay(userTotal);
-             cTotal=compPlay()+cTotal;
-          }
+                if(cTotal < 100 && userTotal < 100)
+                   userTotal=userPlay(userTotal);
+                if(cTotal < 100 && userTotal < 100)
+                   cTotal=compPlay()+cTotal;
+             }
           System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.");
           if (userTotal>cTotal)
             System.out.print("You won!");
@@ -28,10 +30,14 @@ public class PigTest{
          int userTotal1=0;
          int userTotal2=0;
          while(userTotal1 < 100 && userTotal2 < 100){
-            System.out.println("Player 1 is playing.");
-            userTotal1=userPlay(userTotal1);
-            System.out.println("\nPlayer 2 is playing.");
-            userTotal2=userPlay(userTotal2);
+            if(userTotal1 < 100 && userTotal2 < 100){
+               System.out.println("Player 1 is playing.");
+               userTotal1=userPlay(userTotal1);
+            }
+            if(userTotal1 < 100 && userTotal2 < 100){
+               System.out.println("\nPlayer 2 is playing.");
+               userTotal2=userPlay(userTotal2);
+            }
             System.out.println("Player 1 had "+userTotal1+" points. Player 2 had "+userTotal2+" points.");
          }
          if (userTotal1>userTotal2)
@@ -57,7 +63,10 @@ public class PigTest{
             System.out.println("You rolled "+dice1+" and "+dice2+".");
             userTotal=userTotal+dice1+dice2;
             System.out.println("Your total is "+userTotal);
-            gamePlaying=playAgain();
+            if(userTotal < 100)
+               gamePlaying=playAgain();
+            else
+               gamePlaying=0;
          }else{
             System.out.println("You rolled "+dice1+" and "+dice2+".");
             System.out.println("Your total is "+userTotal+" and your turn is over because you rolled a 1.");
