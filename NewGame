@@ -8,46 +8,53 @@ public class Pig{
     int answering=1;
        Scanner reader=new Scanner(System.in);
        Rules();
-       System.out.print("Do you want to play with 1 player or two player? Enter 1 or 2: ");
-       int player=reader.nextInt();
-       if (player==1){
-          int userTotal=0;
-          int cTotal=0;
-             while(cTotal < 100 && userTotal < 100){
-                if(cTotal < 100 && userTotal < 100)
-                   userTotal=userPlay(userTotal)+userTotal;
-                if(cTotal < 100 && userTotal < 100)
-                   cTotal=compPlay()+cTotal;
-             }
-          System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.\n");
-          if (userTotal>cTotal)
-            System.out.print("You won!");
-          else if (userTotal<cTotal)
-            System.out.print("You lost.");
-          else
-            System.out.print("The game was a tie.");  
-       }else if (player==2){
-         int gamePlaying=1;
-         int userTotal1=0;
-         int userTotal2=0;
-         while(userTotal1 < 100 && userTotal2 < 100){
-            if(userTotal1 < 100 && userTotal2 < 100){
-               System.out.println("Player 1 is playing.");
-               userTotal1=userPlay(userTotal1)+userTotal1;
+       int asking=1;
+       while (asking==1){
+          System.out.print("Do you want to play with 1 player or two player? Enter 1 or 2: ");
+          int player=reader.nextInt();
+          if (player==1){
+             asking=0;
+             int userTotal=0;
+             int cTotal=0;
+                while(cTotal < 100 && userTotal < 100){
+                   System.out.println("You have a total of "+userTotal+" points. The computer has a total of "+cTotal+" points.");
+                   if(cTotal < 100 && userTotal < 100)
+                      userTotal=userPlay(userTotal)+userTotal;
+                   if(cTotal < 100 && userTotal < 100)
+                      cTotal=compPlay()+cTotal;
+                }
+             System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.\n");
+             if (userTotal>cTotal)
+               System.out.print("You won!");
+             else if (userTotal<cTotal)
+               System.out.print("You lost.");
+             else
+               System.out.print("The game was a tie.");  
+          }else if (player==2){
+            asking=2;
+            int gamePlaying=1;
+            int userTotal1=0;
+            int userTotal2=0;
+            while(userTotal1 < 100 && userTotal2 < 100){
+               if(userTotal1 < 100 && userTotal2 < 100){
+                  System.out.println("Player 1 is playing.");
+                  userTotal1=userPlay(userTotal1)+userTotal1;
+               }
+               if(userTotal1 < 100 && userTotal2 < 100){
+                  System.out.println("\nPlayer 2 is playing.");
+                  userTotal2=userPlay(userTotal2)+userTotal2;
+               }
+               if(userTotal1 < 100 && userTotal2 < 100)
+                  System.out.println("\nPlayer 1 has "+userTotal1+" points. Player 2 has "+userTotal2+" points.\nNext Round Starts now.\n");
             }
-            if(userTotal1 < 100 && userTotal2 < 100){
-               System.out.println("\nPlayer 2 is playing.");
-               userTotal2=userPlay(userTotal2)+userTotal2;
-            }
-            System.out.println("\nPlayer 1 has "+userTotal1+" points. Player 2 has "+userTotal2+" points.\nNext Round Starts now.\n");
+            if (userTotal1>userTotal2)
+               System.out.print("Player 1 won.");
+            else if (userTotal1<userTotal2)
+               System.out.print("Player 2 won.");
+            else
+               System.out.print("The game was a tie.");
          }
-         if (userTotal1>userTotal2)
-            System.out.print("Player 1 won.");
-         else if (userTotal1<userTotal2)
-            System.out.print("Player 2 won.");
-         else
-            System.out.print("The game was a tie.");
-         }
+      }
    }
    public static int userPlay(int userTotal){
       int gamePlaying=1;
@@ -65,7 +72,7 @@ public class Pig{
             System.out.println("You rolled "+dice1+" and "+dice2+".");
             turnTotal=turnTotal+dice1+dice2;
             System.out.println("Your total for this round is "+turnTotal);
-            if(userTotal < 100)
+            if(userTotal+turnTotal<100)
                gamePlaying=playAgain();
             else
                gamePlaying=0;
