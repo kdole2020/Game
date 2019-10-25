@@ -7,6 +7,7 @@ public class Pig{
   public static void main (String[] args){
     int answering=1;
        Scanner reader=new Scanner(System.in);
+       Rules();
        System.out.print("Do you want to play with 1 player or two player? Enter 1 or 2: ");
        int player=reader.nextInt();
        if (player==1){
@@ -14,11 +15,11 @@ public class Pig{
           int cTotal=0;
              while(cTotal < 100 && userTotal < 100){
                 if(cTotal < 100 && userTotal < 100)
-                   userTotal=userPlay(userTotal);
+                   userTotal=userPlay(userTotal)+userTotal;
                 if(cTotal < 100 && userTotal < 100)
                    cTotal=compPlay()+cTotal;
              }
-          System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.");
+          System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.\n");
           if (userTotal>cTotal)
             System.out.print("You won!");
           else if (userTotal<cTotal)
@@ -32,13 +33,13 @@ public class Pig{
          while(userTotal1 < 100 && userTotal2 < 100){
             if(userTotal1 < 100 && userTotal2 < 100){
                System.out.println("Player 1 is playing.");
-               userTotal1=userPlay(userTotal1);
+               userTotal1=userPlay(userTotal1)+userTotal1;
             }
             if(userTotal1 < 100 && userTotal2 < 100){
                System.out.println("\nPlayer 2 is playing.");
-               userTotal2=userPlay(userTotal2);
+               userTotal2=userPlay(userTotal2)+userTotal2;
             }
-            System.out.println("Player 1 had "+userTotal1+" points. Player 2 had "+userTotal2+" points.");
+            System.out.println("\nPlayer 1 has "+userTotal1+" points. Player 2 has "+userTotal2+" points.\nNext Round Starts now.\n");
          }
          if (userTotal1>userTotal2)
             System.out.print("Player 1 won.");
@@ -50,9 +51,10 @@ public class Pig{
    }
    public static int userPlay(int userTotal){
       int gamePlaying=1;
+      int turnTotal=0;
       while (gamePlaying==1){
          Scanner reader=new Scanner(System.in);
-         System.out.print("You have "+userTotal+" points. Hit Enter to roll dice.");
+         System.out.print("You have "+turnTotal+" points for this turn. You have "+userTotal+" points before this turn. Hit Enter to roll dice.");
          reader.nextLine();
          Random generator=new Random();
          int dice1=0;
@@ -61,19 +63,21 @@ public class Pig{
          dice2=generator.nextInt(5)+1;
          if (dice1!=1 && dice2!=1){
             System.out.println("You rolled "+dice1+" and "+dice2+".");
-            userTotal=userTotal+dice1+dice2;
-            System.out.println("Your total is "+userTotal);
+            turnTotal=turnTotal+dice1+dice2;
+            System.out.println("Your total for this round is "+turnTotal);
             if(userTotal < 100)
                gamePlaying=playAgain();
             else
                gamePlaying=0;
          }else{
             System.out.println("You rolled "+dice1+" and "+dice2+".");
-            System.out.println("Your total is "+userTotal+" and your turn is over because you rolled a 1.");
+            turnTotal=0;
+            System.out.print("Your total for this turn is "+turnTotal+" and your turn is over because you rolled a 1. You have a total of "+userTotal+" points.\nHit enter to move to the next person's turn.");
+            reader.nextLine();
             gamePlaying=0;
          }
       }
-      return userTotal;
+      return turnTotal;
    }
    public static int compPlay(){
       Random g = new Random();
@@ -114,5 +118,21 @@ public class Pig{
          }
       }
       return output;
+   }
+   public static void Rules(){
+      Scanner reader=new Scanner(System.in);
+      int asking=1;
+      while (asking==1){
+         System.out.print("Do you want to see the rules? Enter y/n: ");
+         String answer=reader.nextLine();
+         if (answer.equals("y")){
+            System.out.println("The first player begins their turn. They roll two dice.\nIf the player rolls a 1, they do not get any points for that roll and their turn is over.\nIf the player does not roll a 1, they gain the number of points as the sum of the two dice and they have the option to roll again.\nThe player keeps rolling until their either roll a 1 or choose to stop rolling.\nThe next player plays with the same rules.\nThe points from each turn add up and the first player to reach 100 points wins.\n");
+            asking=0;
+         }else if (answer.equals("n")){
+            asking=0;
+         }else{
+            asking=1;
+         }
+      }
    }
 }
