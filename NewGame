@@ -92,6 +92,7 @@ public class Pig{
             ctotal += cdie1 + cdie2;
          }
          System.out.println("Computer rolled a " + cdie1 + " and a " + cdie2 + " for a " + ctotal);
+         System.out.println("The computer has "+ctotal+" points.");
       }
       return ctotal;
    }
