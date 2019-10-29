@@ -6,6 +6,7 @@ Bug Fix 2: Don't say each players points before the first round because it's obv
 
 import java.util.Scanner;
 import java.util.Random;
+import java.io.*;
 public class Pig{
   public static void main (String[] args){
     int answering=1;
@@ -19,6 +20,7 @@ public class Pig{
              asking=0;
              int userTotal=0;
              int cTotal=0;
+             int userTurn=0;
              boolean firstRound=true;
                 while(cTotal < 100 && userTotal < 100){
                    if(firstRound!=true)
