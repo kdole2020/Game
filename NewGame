@@ -1,5 +1,8 @@
-//Veni and Ben
-//Pig Game One Player Version
+/*Veni and Ben
+Pig Game Final Version
+Bug Fix: Don't list round points at the beginning of the round because it's obvious that it's zero.
+Bug Fix 2: Don't say each players points before the first round because it's obvious that it's zero.
+*/
 
 import java.util.Scanner;
 import java.util.Random;
@@ -16,13 +19,15 @@ public class Pig{
              asking=0;
              int userTotal=0;
              int cTotal=0;
+             boolean firstRound=true;
                 while(cTotal < 100 && userTotal < 100){
-                   System.out.println("You have a total of "+userTotal+" points. The computer has a total of "+cTotal+" points.");
+                   if(firstRound!=true)
+                     System.out.println("You have a total of "+userTotal+" points. The computer has a total of "+cTotal+" points.");
                    if(cTotal < 100 && userTotal < 100)
                       userTotal=userPlay(userTotal)+userTotal;
                    if(cTotal < 100 && userTotal < 100)
                       cTotal=compPlay()+cTotal;
-                }
+                   firstRound=false;                }
              System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.\n");
              if (userTotal>cTotal)
                System.out.print("You won!");
@@ -61,7 +66,7 @@ public class Pig{
       int turnTotal=0;
       while (gamePlaying==1){
          Scanner reader=new Scanner(System.in);
-         System.out.print("You have "+turnTotal+" points for this turn. You have "+userTotal+" points before this turn. Hit Enter to roll dice.");
+         System.out.print("You have "+userTotal+" points before this turn. Hit Enter to roll dice.");
          reader.nextLine();
          Random generator=new Random();
          int dice1=0;
@@ -71,9 +76,9 @@ public class Pig{
          if (dice1!=1 && dice2!=1){
             System.out.println("You rolled "+dice1+" and "+dice2+".");
             turnTotal=turnTotal+dice1+dice2;
-            System.out.println("Your total for this round is "+turnTotal);
+            System.out.println("Your total for this round is "+turnTotal+".");
             if(userTotal+turnTotal<100)
-               gamePlaying=playAgain();
+               gamePlaying=playAgain(turnTotal);
             else
                gamePlaying=0;
          }else{
@@ -106,7 +111,7 @@ public class Pig{
       }
       return ctotal;
    }
-   public static int playAgain(){
+   public static int playAgain(int turnTotal){
       Scanner reader=new Scanner(System.in);
       int output=1;
       int asking=1;
@@ -115,6 +120,7 @@ public class Pig{
          String answer=reader.nextLine();
          if (answer.equals("y")){
             output=1;
+            System.out.print("You have "+turnTotal+" points for this turn. ");
             asking=0;
          }else if (answer.equals("n")){
             output=0;
