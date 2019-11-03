@@ -2,13 +2,15 @@
 Pig Game Final Version
 Bug Fix: Don't list round points at the beginning of the round because it's obvious that it's zero.
 Bug Fix 2: Don't say each players points before the first round because it's obvious that it's zero.
+Final Version: Includes feature to save high score to a file, where high score is the least number of turns to win.
 */
 
 import java.util.Scanner;
 import java.util.Random;
 import java.io.*;
+
 public class Pig{
-  public static void main (String[] args) throws IOException{
+  public static void main (String[] args)throws IOException{
     int answering=1;
        Scanner reader=new Scanner(System.in);
        Rules();
@@ -20,7 +22,6 @@ public class Pig{
              asking=0;
              int userTotal=0;
              int cTotal=0;
-             int userTurn=0;
              boolean firstRound=true;
                 while(cTotal < 100 && userTotal < 100){
                    if(firstRound!=true)
@@ -42,28 +43,64 @@ public class Pig{
             int gamePlaying=1;
             int userTotal1=0;
             int userTotal2=0;
+            int P1count=0;
+            int P2count=0;
             while(userTotal1 < 100 && userTotal2 < 100){
                if(userTotal1 < 100 && userTotal2 < 100){
                   System.out.println("Player 1 is playing.");
                   userTotal1=userPlay(userTotal1)+userTotal1;
+                  P1count++;
                }
                if(userTotal1 < 100 && userTotal2 < 100){
                   System.out.println("\nPlayer 2 is playing.");
                   userTotal2=userPlay(userTotal2)+userTotal2;
+                  P2count++;
                }
                if(userTotal1 < 100 && userTotal2 < 100)
                   System.out.println("\nPlayer 1 has "+userTotal1+" points. Player 2 has "+userTotal2+" points.\nNext Round Starts now.\n");
             }
-            if (userTotal1>userTotal2)
-               System.out.print("Player 1 won.");
-            else if (userTotal1<userTotal2)
-               System.out.print("Player 2 won.");
-            else
-               System.out.print("The game was a tie.");
+            int currentHigh=0;
+               if (userTotal1>userTotal2){
+                  System.out.println("\nPlayer 1 won in "+P1count+" turns with a total of "+userTotal1+" points.");
+               }else if (userTotal1<userTotal2){
+                  System.out.println("\nPlayer 2 won in "+P2count+" turns with a total of "+userTotal2+" points.");
+               }else{
+                  System.out.println("\nThe game was a tie.");
+               }
+            int newRecord=0;
+            
+            Scanner fileReader=new Scanner (new File("2PlayerHigh.txt"));
+            while (fileReader.hasNext()){
+               currentHigh=fileReader.nextInt();
+               System.out.println("The record before this game was "+currentHigh+" turns.");
+               if (userTotal1>userTotal2 && P1count<currentHigh){
+                     newRecord=P1count;
+                     System.out.print("Player 1 got a new high score for the least number of rounds to win.");
+               }else if (userTotal1<userTotal2 && P2count<currentHigh){
+                     newRecord=P2count;
+                     System.out.print("Player 2 got a new high score for the least number of rounds to win.");
+               }else if (userTotal1==userTotal2){
+                  if (P2count<currentHigh && P2count<P1count){
+                        System.out.print("The game was a tie. Player 2 got a new high score by finishing in "+P2count+" turns.");
+                        newRecord=P2count;
+                  }else if (P1count<currentHigh && P1count<P2count){
+                        System.out.print("The game was a tie. Player 1 got a new high score by finishing in "+P1count+" turns.");
+                        newRecord=P1count;
+                  }else{
+                     System.out.print("The game was a tie and neither player got a new record.");
+                  }
+               }else{
+                  newRecord=currentHigh;
+            }
+            String Player2High = "2PlayerHigh.txt";
+            PrintWriter writer=new PrintWriter(new File(Player2High));
+            writer.print(newRecord);
+            writer.close();
+            }
          }
       }
    }
-   public static int userPlay(int userTotal){
+   public static int userPlay(int userTotal) throws IOException{
       int gamePlaying=1;
       int turnTotal=0;
       while (gamePlaying==1){
@@ -140,7 +177,7 @@ public class Pig{
          System.out.print("Do you want to see the rules? Enter y/n: ");
          String answer=reader.nextLine();
          if (answer.equals("y")){
-            System.out.println("The first player begins their turn. They roll two dice.\nIf the player rolls a 1, they do not get any points for that roll and their turn is over.\nIf the player does not roll a 1, they gain the number of points as the sum of the two dice and they have the option to roll again.\nThe player keeps rolling until their either roll a 1 or choose to stop rolling.\nThe next player plays with the same rules.\nThe points from each turn add up and the first player to reach 100 points wins.\n");
+            System.out.println("The first player begins their turn. They roll two dice.\nIf the player rolls a 1, they do not get any points for that roll and their turn is over.\nIf the player does not roll a 1, they gain the number of points as the sum of the two dice and they have the option to roll again.\nThe player keeps rolling until their either roll a 1 or choose to stop rolling.\nThe next player plays with the same rules.\nThe points from each turn add up and the first player to reach 100 points wins.\nIf the player who won did so in less rounds than the current record, they will get their score saved as the new record.\n");
             asking=0;
          }else if (answer.equals("n")){
             asking=0;
