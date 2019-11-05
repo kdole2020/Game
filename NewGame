@@ -22,22 +22,52 @@ public class Pig{
              asking=0;
              int userTotal=0;
              int cTotal=0;
+             int userTurn=0;
              boolean firstRound=true;
-                while(cTotal < 100 && userTotal < 100){
-                   if(firstRound!=true)
-                     System.out.println("You have a total of "+userTotal+" points. The computer has a total of "+cTotal+" points.");
-                   if(cTotal < 100 && userTotal < 100)
-                      userTotal=userPlay(userTotal)+userTotal;
-                   if(cTotal < 100 && userTotal < 100)
-                      cTotal=compPlay()+cTotal;
-                   firstRound=false;                }
-             System.out.println("You had "+userTotal+" points. The computer had "+cTotal+" points.\n");
-             if (userTotal>cTotal)
-               System.out.print("You won!");
-             else if (userTotal<cTotal)
-               System.out.print("You lost.");
-             else
-               System.out.print("The game was a tie.");  
+             while(cTotal < 100 && userTotal < 100){
+                if(firstRound!=true)
+                   System.out.println("You have a total of "+userTotal+" points. The computer has a total of "+cTotal+" points.");
+                if(cTotal < 100 && userTotal < 100){
+                   userTotal=userPlay(userTotal)+userTotal;
+                   userTurn++;
+                }
+                if(cTotal < 100 && userTotal < 100)
+                   cTotal=compPlay()+cTotal;
+                firstRound=false;
+             }
+             int currentHigh=0;
+               if (userTotal>cTotal){
+                  System.out.println("You Won!");
+               }else if (cTotal<userTotal){
+                  System.out.println("You lost");
+               }else{
+                  System.out.println("\nThe game was a tie.");
+               }
+            int newRecord=0;
+            
+            Scanner fileReader=new Scanner (new File("highscores.txt"));
+            while (fileReader.hasNext()){
+               currentHigh=fileReader.nextInt();
+               System.out.println("The record before this game was "+currentHigh+" turns.");
+               if (userTotal>cTotal && userTurn<currentHigh){
+                     newRecord=userTurn;
+                     System.out.print("You got a new high score for the least number of rounds to win.");
+               }else if(userTotal<cTotal){
+                  System.out.println("You lost!");
+               }else if (userTotal==cTotal){
+                  if (userTurn<currentHigh){
+                        System.out.print("The game was a tie. You got a new high score by finishing in "+userTurn+" turns.");
+                        newRecord=userTurn;
+                  }else{
+                     System.out.print("The game was a tie and you didn't get a new record.");
+                  }
+               }else{
+                  newRecord=currentHigh;
+            }
+            PrintWriter writer=new PrintWriter(new File(highscores));
+            writer.print(newRecord);
+            writer.close();
+            }           
           }else if (player==2){
             asking=2;
             int gamePlaying=1;
