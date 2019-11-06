@@ -64,7 +64,7 @@ public class Pig{
                }else{
                   newRecord=currentHigh;
             }
-            PrintWriter writer=new PrintWriter(new File(highscores));
+            PrintWriter writer=new PrintWriter(new File("highscores.txt"));
             writer.print(newRecord);
             writer.close();
             }           
